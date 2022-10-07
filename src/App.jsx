@@ -26,7 +26,6 @@ function App() {
 
   function ShowResult() {
     var result = <div className='mt-5 text-slate-800 font-semibold text-lg'>Player { player } &#60;{ piece }&#62; wins!</div>
-    console.log(moves, win)
     if (moves == 9 && !win) {
       result = <div className='mt-5 text-slate-800 font-semibold text-lg'>Draw!</div>
     }
@@ -144,7 +143,6 @@ function App() {
     e.target.innerText = piece
     e.target.classList.add("pointer-events-none")
     checkBoard()
-    console.log(moves)
     setMoves(moves + 1)
     { moves == 8 && setIsPlaying(false) }
     { isPlaying ? dispatch({ type: player }) : ref.current.classList.add("pointer-events-none") }
