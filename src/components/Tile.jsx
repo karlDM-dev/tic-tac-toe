@@ -1,20 +1,23 @@
 import { useCallback } from "react"
 import { checkBoard } from "../assets/js/checkBoard"
 import { getRowAndCol } from "../assets/js/getRowAndCol"
-import { getUpdatedBoard } from "../assets/js/getUpdatedBoard"
 
-export default function Tile({tileNumber, piece, setPiece, player, setPlayer, board, setBoard, moves, setMoves, isPlaying, setIsPlaying, win, setWin, parentDiv}) {
+export default function Tile({tileNumber, piece, setPiece, player, setPlayer, board, setBoard, moves, setMoves, setIsPlaying, setWin, parentDiv}) {
     const handleClick = useCallback((tileNumber, e) => {
         e.target.innerHTML = piece
 
         let [row, col] = getRowAndCol(tileNumber)
-        setBoard(getUpdatedBoard(board, row, col, piece))
+
+        const currentBoard = [...board]
+        currentBoard[row][col] = piece
+        setBoard(currentBoard)
+        console.log(board)
 
         let [currentPlayingStatus, currentWinStatus] = checkBoard(board, parentDiv)
         setMoves(currentMoves => currentMoves + 1)
         setIsPlaying(currentPlayingStatus)
         setWin(currentWinStatus)
-
+        
         if (moves === 8) setIsPlaying(false)
 
         if (currentPlayingStatus) {
