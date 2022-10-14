@@ -1,8 +1,11 @@
-import { useCallback } from "react"
+import { useCallback, useContext } from "react"
 import { checkBoard } from "../assets/js/checkBoard"
 import { getRowAndCol } from "../assets/js/getRowAndCol"
+import GameContext from "../context/game-context"
 
-export default function Tile({tileNumber, piece, setPiece, player, setPlayer, board, setBoard, moves, setMoves, setIsPlaying, setWin, parentDiv}) {
+export default function Tile({ tileNumber, parentDiv }) {
+    const { piece, setPiece, player, setPlayer, board, setBoard, moves, setMoves, setIsPlaying, setWin } = useContext(GameContext)
+
     const handleClick = useCallback((tileNumber, e) => {
         e.target.innerHTML = piece
 
@@ -11,7 +14,6 @@ export default function Tile({tileNumber, piece, setPiece, player, setPlayer, bo
         const currentBoard = [...board]
         currentBoard[row][col] = piece
         setBoard(currentBoard)
-        console.log(board)
 
         let [currentPlayingStatus, currentWinStatus] = checkBoard(board, parentDiv)
         setMoves(currentMoves => currentMoves + 1)
